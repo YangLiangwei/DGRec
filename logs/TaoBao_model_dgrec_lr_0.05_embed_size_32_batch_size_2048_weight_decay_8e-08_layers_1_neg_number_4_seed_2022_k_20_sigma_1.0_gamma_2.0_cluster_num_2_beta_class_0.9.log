@@ -1,0 +1,28 @@
+Thu, 20 Oct 2022 21:21:26  INFO loadding data
+Thu, 20 Oct 2022 21:21:26  INFO reading category information
+Thu, 20 Oct 2022 21:21:39  INFO reading train data
+Thu, 20 Oct 2022 21:21:46  INFO reading valid data
+Thu, 20 Oct 2022 21:21:48  INFO reading test data
+Thu, 20 Oct 2022 21:21:49  INFO get weight for each sample
+Thu, 20 Oct 2022 21:21:49  INFO loading best model for test
+Thu, 20 Oct 2022 21:21:49  INFO begin testing
+Thu, 20 Oct 2022 21:23:08  INFO For top10, metric recall = 0.008560965250292416
+Thu, 20 Oct 2022 21:23:08  INFO For top50, metric recall = 0.02857439607717665
+Thu, 20 Oct 2022 21:23:08  INFO For top100, metric recall = 0.04600719171924543
+Thu, 20 Oct 2022 21:23:08  INFO For top300, metric recall = 0.09268699764672514
+Thu, 20 Oct 2022 21:23:08  INFO For top10, metric hit_ratio = 0.06943957014751975
+Thu, 20 Oct 2022 21:23:08  INFO For top50, metric hit_ratio = 0.2036837583047935
+Thu, 20 Oct 2022 21:23:08  INFO For top100, metric hit_ratio = 0.2983432768990597
+Thu, 20 Oct 2022 21:23:08  INFO For top300, metric hit_ratio = 0.4750886449723476
+Thu, 20 Oct 2022 21:23:08  INFO For top10, metric coverage = 6.4530272409328
+Thu, 20 Oct 2022 21:23:08  INFO For top50, metric coverage = 23.012476855493567
+Thu, 20 Oct 2022 21:23:08  INFO For top100, metric coverage = 39.294095579248
+Thu, 20 Oct 2022 21:23:08  INFO For top300, metric coverage = 89.87640531022716
+Thu, 20 Oct 2022 21:23:08  INFO For top10, metric gini_index = 0.21151015035117196
+Thu, 20 Oct 2022 21:23:08  INFO For top50, metric gini_index = 0.4023390793485581
+Thu, 20 Oct 2022 21:23:08  INFO For top100, metric gini_index = 0.4706206678685221
+Thu, 20 Oct 2022 21:23:08  INFO For top300, metric gini_index = 0.571705239504966
+Thu, 20 Oct 2022 21:23:08  INFO For top10, metric entropy = 1.6486125298408152
+Thu, 20 Oct 2022 21:23:08  INFO For top50, metric entropy = 2.584459442899672
+Thu, 20 Oct 2022 21:23:08  INFO For top100, metric entropy = 2.943819748796987
+Thu, 20 Oct 2022 21:23:08  INFO For top300, metric entropy = 3.457701152603877
