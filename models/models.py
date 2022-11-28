@@ -8,7 +8,7 @@ import dgl
 import dgl.function as fn
 import dgl.nn as dglnn
 from dgl.nn import GraphConv
-from models.layers import LightGCNLayer, SubLightGCNLayer, GCNLayer
+from models.layers import DGRecLayer
 
 class HeteroDotProductPredictor(nn.Module):
     def forward(self, graph, h, etype):
@@ -72,64 +72,14 @@ class BaseGraphModel(nn.Module):
         scores = torch.mm(user_embed, item_embed.t())
         return scores
 
-class LightGCN(BaseGraphModel):
-    def __init__(self, args, dataloader):
-        super(LightGCN, self).__init__(args, dataloader)
-
-    def build_layer(self, idx):
-        return LightGCNLayer()
-
-    def get_embedding(self):
-        user_embed = [self.user_embedding]
-        item_embed = [self.item_embedding]
-        h = self.node_features
-
-        for layer in self.layers:
-
-            h_item = layer(self.graph, h, ('user', 'rate', 'item'))
-            h_user = layer(self.graph, h, ('item', 'rated by', 'user'))
-
-            user_embed.append(h_user)
-            item_embed.append(h_item)
-            h = {'user': h_user, 'item': h_item}
-
-        user_embed = torch.mean(torch.stack(user_embed, dim = 0), dim = 0)
-        item_embed = torch.mean(torch.stack(item_embed, dim = 0), dim = 0)
-        h = {'user': user_embed, 'item': item_embed}
-
-        return h
-
 class DGRec(BaseGraphModel):
     def __init__(self, args, dataloader):
         super(DGRec, self).__init__(args, dataloader)
         self.W = torch.nn.Parameter(torch.randn(self.args.embed_size, self.args.embed_size))
         self.a = torch.nn.Parameter(torch.randn(self.args.embed_size))
-        # self.a = torch.nn.Parameter(torch.ones(self.args.layers + 1) / (self.args.layers + 1))
 
     def build_layer(self, idx):
-        return SubLightGCNLayer(self.args)
-
-    def det_weight(self, ls):
-        tensor = torch.stack(ls, dim = 0)
-
-        dist = torch.cdist(tensor, tensor)
-        weight = torch.det(dist, dim = 1).sum(-1)
-        weight = F.softmax(weight).unsqueeze(1).unsqueeze(1)
-        weight = weight.clone().detach()
-        tensor = (tensor * weight).sum(0)
-        return tensor
-
-
-    def var_weight(self, ls):
-        tensor = torch.stack(ls, dim = 0)
-        tensor_max = torch.max(tensor, dim = 1)[0].unsqueeze(1)
-        tensor_min = torch.min(tensor, dim = 1)[0].unsqueeze(1)
-        normalized = (tensor - tensor_min) / (tensor_max - tensor_min)
-        weight = torch.var(normalized, dim = 1).sum(-1)
-        weight = F.softmax(weight).unsqueeze(1).unsqueeze(1)
-        weight = weight.clone().detach()
-        tensor = (tensor * weight).sum(0)
-        return tensor
+        return DGRecLayer(self.args)
 
     def layer_attention(self, ls, W, a):
         tensor_layers = torch.stack(ls, dim = 0)
@@ -150,12 +100,8 @@ class DGRec(BaseGraphModel):
             h = {'user': h_user, 'item': h_item}
             user_embed.append(h_user)
             item_embed.append(h_item)
-        # user_embed = torch.mean(torch.stack(user_embed, dim = 0), dim = 0)
-        # item_embed = torch.mean(torch.stack(item_embed, dim = 0), dim = 0)
         user_embed = self.layer_attention(user_embed, self.W, self.a)
         item_embed = self.layer_attention(item_embed, self.W, self.a)
-        # user_embed = self.var_weight(user_embed)
-        # item_embed = self.var_weight(item_embed)
         h = {'user': user_embed, 'item': item_embed}
         return h
 
