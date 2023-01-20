@@ -12,4 +12,10 @@ You can check different hyper-parameters in `utils/parser.py`
 ## Citation
 If you use our code, please cite the paper below:
 ```bibtex
+@article{yang2022dgrec,
+  title={DGRec: Graph Neural Network for Recommendation with Diversified Embedding Generation},
+  author={Yang, Liangwei and Wang, Shengjie and Tao, Yunzhe and Sun, Jiankai and Liu, Xiaolong and Yu, Philip S and Wang, Taiqing},
+  journal={arXiv preprint arXiv:2211.10486},
+  year={2022}
+}
 ```
