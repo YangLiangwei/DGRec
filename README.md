@@ -1,7 +1,7 @@
 # DGRec
 
 A PyTorch and DGL implementation for the WSDM 2023 paper below:  
-**DGRec: Graph Neural Network for Recommendation with Diversified Embedding Generation**.  
+[DGRec: Graph Neural Network for Recommendation with Diversified Embedding Generation](https://arxiv.org/pdf/2211.10486.pdf)
 
 ## Running
 ``python main.py``  
