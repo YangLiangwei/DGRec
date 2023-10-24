@@ -14,8 +14,10 @@ Then you can get similar result on TaoBao dataset as illustrated in the paper.
 You can check different hyper-parameters in `utils/parser.py`
 
 ## Dataset
-Format of train.txt val.txt test.txt: UserID,ItemID
+Format of train.txt val.txt test.txt: UserID,ItemID.
+
 Format of item_category.txt: ItemID,CategoryID
+
 If you want to change to your own dataset. Format your dataset in a folder as in datasets/Beauty, and specify your folder name in --dataset argument.
 
 ## Citation
